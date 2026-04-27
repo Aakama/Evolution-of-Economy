@@ -18,9 +18,9 @@ public class NpcDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsAnotherNpcThere) {
-            Debug.Log(temp);
-        }
+        // if (IsAnotherNpcThere) {
+        //     Debug.Log(temp);
+        // }
     }
 
     void OnTriggerEnter(Collider other) {
@@ -31,10 +31,12 @@ public class NpcDetector : MonoBehaviour
             OtherNpc = other.GetComponent<NpcOccupations>();
 
             if (OtherNpc.Product == ThisNpc.Preference || ThisNpc.Product == OtherNpc.Preference) {
-                temp = "Hello";
+                Debug.Log("Hello");
+
+                NpcTrading.Instance.ExecuteTradeLogic(ThisNpc, OtherNpc);
             }
             else {
-                temp = "Bye";
+                Debug.Log("Bye");
             }
         }
     }

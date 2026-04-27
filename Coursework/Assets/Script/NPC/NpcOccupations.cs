@@ -14,7 +14,7 @@ public class NpcOccupations : MonoBehaviour
 {
     
     [Header("Identity")]
-    public Occupations myJobs;
+    public Occupations MyJobs;
 
     // These are now Properties of occupations are visible
     [field: SerializeField] public string Product { get; private set; }
@@ -31,7 +31,7 @@ public class NpcOccupations : MonoBehaviour
 
     void NpcData() {
         //Checks the occupation and gives the properties of the job
-        switch (myJobs) {
+        switch (MyJobs) {
             case Occupations.Herder:
                 Product = "Milk";
                 Preference = "Clothes";
@@ -42,7 +42,7 @@ public class NpcOccupations : MonoBehaviour
                 break;
             case Occupations.AppleFarmer:
                 Product = "Apples";
-                Preference = "shoes";
+                Preference = "Shoes";
                 ItemValue = 1;
                 Perishability = 30f;
                 IsPerishable = true;
@@ -77,7 +77,7 @@ public class NpcOccupations : MonoBehaviour
             
             case Occupations.Tailor:
                 Product = "Clothes";
-                Preference = "salt";
+                Preference = "Salt";
                 ItemValue = 3;
                 Perishability = 0f;
                 IsPerishable = false;

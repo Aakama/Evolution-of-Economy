@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class NpcTrading : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    //Makes it easier to find for other scripts
+    public static NpcTrading Instance;
+
+    public int currentDay = 1;
+
+    void Awake() {
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void ExecuteTradeLogic(NpcOccupations npcA, NpcOccupations npcB){
+        Debug.Log($"Logic Check: {npcA.MyJobs} meeting {npcB.MyJobs} on Day {currentDay}");
     }
 }
