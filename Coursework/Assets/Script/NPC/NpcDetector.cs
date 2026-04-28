@@ -56,9 +56,6 @@ public class NpcDetector : MonoBehaviour
 
     bool CheckForMatch(NpcOccupations npcA, NpcOccupations npcB)
     {
-        return (
-            OtherNpc.Product.ItemName == ThisNpc.Preference
-            || ThisNpc.Product.ItemName == OtherNpc.Preference
-        );
+        return ThisNpc.Product.ItemName == OtherNpc.Preference;
     }
 }

@@ -52,7 +52,7 @@ public class NpcOccupations : MonoBehaviour
         NpcData();
     }
 
-    void NpcData()
+    public void NpcData()
     {
         //Checks the occupation and gives the properties of the job
         switch (MyJobs)
@@ -92,7 +92,4 @@ public class NpcOccupations : MonoBehaviour
                 break;
         }
     }
-
-    // Update is called once per frame
-    void Update() { }
 }
