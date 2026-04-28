@@ -1,27 +1,50 @@
 using UnityEngine;
 
 // This are the occupations available
-public enum Occupations {
+public enum Occupations
+{
     Herder,
     AppleFarmer,
     GrainFarmer,
     SaltTrader,
     Tailor,
-    Cobbler
+    Cobbler,
+}
+
+public class ItemManager
+{
+    public string ItemName;
+    public int ItemValue;
+    public bool IsPerishable;
+    public float Perishability;
+
+    public ItemManager(string Item, int Value, bool Perishable, float Perishability)
+    {
+        this.ItemName = Item;
+        this.ItemValue = Value;
+        this.IsPerishable = Perishable;
+        this.Perishability = Perishability;
+    }
+
+    public ItemManager(string Item, int Value, bool Perishable)
+    {
+        this.ItemName = Item;
+        this.ItemValue = Value;
+        this.IsPerishable = Perishable;
+    }
 }
 
 public class NpcOccupations : MonoBehaviour
 {
-    
     [Header("Identity")]
     public Occupations MyJobs;
 
     // These are now Properties of occupations are visible
-    [field: SerializeField] public string Product { get; private set; }
-    [field: SerializeField] public string Preference { get; private set; }
-    [field: SerializeField] public int ItemValue { get; private set; }
-    [field: SerializeField] public float Perishability { get; private set; }
-    [field: SerializeField] public bool IsPerishable { get; private set; }
+    [field: SerializeField]
+    public ItemManager Product { get; set; }
+
+    [field: SerializeField]
+    public string Preference { get; private set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,67 +52,47 @@ public class NpcOccupations : MonoBehaviour
         NpcData();
     }
 
-    void NpcData() {
+    void NpcData()
+    {
         //Checks the occupation and gives the properties of the job
-        switch (MyJobs) {
+        switch (MyJobs)
+        {
             case Occupations.Herder:
-                Product = "Milk";
+                Product = new ItemManager("Milk", 1, true, 8f);
                 Preference = "Clothes";
-                ItemValue = 1;
-                Perishability = 8f;
-                IsPerishable = true;
                 gameObject.tag = "Herder";
                 break;
             case Occupations.AppleFarmer:
-                Product = "Apples";
+                Product = new ItemManager("Apple", 1, true, 30f);
                 Preference = "Shoes";
-                ItemValue = 1;
-                Perishability = 30f;
-                IsPerishable = true;
                 gameObject.tag = "AppleFarmer";
                 break;
             case Occupations.GrainFarmer:
-                Product = "Grains";
+                Product = new ItemManager("Grain", 2, true, 60f);
                 Preference = "Milk";
-                ItemValue = 2;
-                Perishability = 60f;
-                IsPerishable = true;
                 gameObject.tag = "GrainFarmer";
                 break;
-            
+
             case Occupations.SaltTrader:
-                Product = "Salt";
+                Product = new ItemManager("Salt", 2, false);
                 Preference = "Grain";
-                ItemValue = 2;
-                Perishability = 0f;
-                IsPerishable = false;
                 gameObject.tag = "SaltTrader";
                 break;
-            
+
             case Occupations.Cobbler:
-                Product = "Shoes";
+                Product = new ItemManager("Shoes", 3, false);
                 Preference = "Salt";
-                ItemValue = 3;
-                Perishability = 0f;
-                IsPerishable = false;
                 gameObject.tag = "Cobbler";
                 break;
-            
+
             case Occupations.Tailor:
-                Product = "Clothes";
+                Product = new ItemManager("Clothes", 3, false);
                 Preference = "Salt";
-                ItemValue = 3;
-                Perishability = 0f;
-                IsPerishable = false;
                 gameObject.tag = "Tailor";
                 break;
-            
         }
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update() { }
 }

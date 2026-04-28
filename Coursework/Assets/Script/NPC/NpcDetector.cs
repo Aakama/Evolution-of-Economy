@@ -5,12 +5,11 @@ public class NpcDetector : MonoBehaviour
     public NpcOccupations ThisNpc;
     public NpcOccupations OtherNpc;
 
-    string temp = "Bye";
-
     public bool IsAnotherNpcThere = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {   
+    {
         // This gets the field of the npc
         ThisNpc = GetComponent<NpcOccupations>();
     }
@@ -23,27 +22,43 @@ public class NpcDetector : MonoBehaviour
         // }
     }
 
-    void OnTriggerEnter(Collider other) {
-        if (other.gameObject.layer == gameObject.layer) {
-            IsAnotherNpcThere = true;
-
-
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == gameObject.layer)
+        {
             OtherNpc = other.GetComponent<NpcOccupations>();
 
-            if (OtherNpc.Product == ThisNpc.Preference || ThisNpc.Product == OtherNpc.Preference) {
-                Debug.Log("Hello");
+            if (OtherNpc != null)
+            {
+                IsAnotherNpcThere = true;
 
-                NpcTrading.Instance.ExecuteTradeLogic(ThisNpc, OtherNpc);
-            }
-            else {
-                Debug.Log("Bye");
+                if (CheckForMatch(ThisNpc, OtherNpc))
+                {
+                    Debug.Log("Hello");
+
+                    NpcTrading.Instance.ExecuteTradeLogic(ThisNpc, OtherNpc);
+                }
+                else
+                {
+                    Debug.Log("Bye");
+                }
             }
         }
     }
 
-    void OnTriggerExit(Collider other) {
-        if (other.gameObject.layer == gameObject.layer) {
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == gameObject.layer)
+        {
             IsAnotherNpcThere = false;
         }
+    }
+
+    bool CheckForMatch(NpcOccupations npcA, NpcOccupations npcB)
+    {
+        return (
+            OtherNpc.Product.ItemName == ThisNpc.Preference
+            || ThisNpc.Product.ItemName == OtherNpc.Preference
+        );
     }
 }
