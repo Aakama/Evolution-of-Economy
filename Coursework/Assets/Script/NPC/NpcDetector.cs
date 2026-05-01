@@ -5,7 +5,7 @@ public class NpcDetector : MonoBehaviour
     public NpcOccupations ThisNpc;
     public NpcOccupations OtherNpc;
 
-    public bool IsAnotherNpcThere = false;
+    private bool IsAnotherNpcThere = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,7 +54,7 @@ public class NpcDetector : MonoBehaviour
         }
     }
 
-    bool CheckForMatch(NpcOccupations npcA, NpcOccupations npcB)
+    bool CheckForMatch(NpcOccupations ThisNpc, NpcOccupations OtherNpc)
     {
         return ThisNpc.Product.ItemName == OtherNpc.Preference;
     }

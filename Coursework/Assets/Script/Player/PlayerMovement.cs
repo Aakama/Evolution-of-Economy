@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Visual Feedback")]
     public GameObject ClickMarkerPrefab;
+    public GameObject FailedClickMarkerPrefab;
 
     public static event System.Action<Vector3> OnGroundTouch;
 
@@ -66,12 +67,27 @@ public class PlayerMovement : MonoBehaviour
                         );
 
                         // Destroy it after 1 second so your game doesn't get cluttered
-                        Destroy(newMarker, 1f);
+                        Destroy(newMarker, 0.5f);
                     }
                 }
                 else
                 {
                     Debug.Log("Clicked point is not on a walkable area.");
+                    if (FailedClickMarkerPrefab != null)
+                    {
+                        // Calculate the position slightly above ground
+                        Vector3 spawnPos = transform.position + new Vector3(0, -1f, 0);
+
+                        // Instantiate creates a brand new copy of the Prefab in the scene
+                        GameObject newMarker = Instantiate(
+                            FailedClickMarkerPrefab,
+                            spawnPos,
+                            Quaternion.identity
+                        );
+
+                        // Destroy it after 1 second so your game doesn't get cluttered
+                        Destroy(newMarker, 0.5f);
+                    }
                 }
             }
         }

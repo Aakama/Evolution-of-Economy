@@ -58,7 +58,7 @@ public class NpcOccupations : MonoBehaviour
         switch (MyJobs)
         {
             case Occupations.Herder:
-                Product = new ItemManager("Milk", 1, true, 8f);
+                Product = new ItemManager("Milk", 1, true, 10f);
                 Preference = "Clothes";
                 gameObject.tag = "Herder";
                 break;
@@ -87,7 +87,7 @@ public class NpcOccupations : MonoBehaviour
 
             case Occupations.Tailor:
                 Product = new ItemManager("Clothes", 3, false);
-                Preference = "Salt";
+                Preference = "Apple";
                 gameObject.tag = "Tailor";
                 break;
         }
