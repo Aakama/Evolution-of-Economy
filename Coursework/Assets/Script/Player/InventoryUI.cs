@@ -30,7 +30,16 @@ public class InventoryUI : MonoBehaviour
     {
         UpdateIcon();
 
-        UpdateSlider();
+        if (TimerSlider == null)
+        {
+            TimerSlider = GameObject.FindAnyObjectByType<UnityEngine.UI.Slider>();
+        }
+
+        // 2. Only run the update logic if we actually found a slider
+        if (TimerSlider != null)
+        {
+            UpdateSlider();
+        }
 
         UpdateBackgroundColor();
     }
