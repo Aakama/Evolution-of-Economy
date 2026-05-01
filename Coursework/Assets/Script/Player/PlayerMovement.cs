@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private NavMeshAgent Agent;
 
-    // private Animator Anim;
+    private Animator Anim;
 
     [Header("Movement Settings")]
     public float MoveSpeed = 10f;
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Anim = GetComponent<Animator>();
+        Anim = GetComponent<Animator>();
         Agent = GetComponent<NavMeshAgent>();
 
         Agent.speed = MoveSpeed;
@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateAnimations();
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -91,5 +93,12 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    void UpdateAnimations()
+    {
+        float speed = Agent.velocity.magnitude;
+
+        Anim.SetFloat("Speed", speed);
     }
 }

@@ -24,10 +24,12 @@ public class InventoryUI : MonoBehaviour
     public Sprite AppleSprite;
     public Sprite ShoesSprite;
     public Sprite GrainSprite;
-    public Sprite SaltSprite; // Add as many as you need!
+    public Sprite SaltSprite;
 
     void Update()
     {
+        Cursor.visible = true;
+
         UpdateIcon();
 
         if (TimerSlider == null)
@@ -75,7 +77,6 @@ public class InventoryUI : MonoBehaviour
         {
             TimerSlider.gameObject.SetActive(true);
 
-            // Percentage = Current / Max (e.g., 4s / 8s = 0.5)
             TimerSlider.value = TimerManager.TimeRemaining / TimerManager.Duration;
         }
         else
@@ -91,7 +92,7 @@ public class InventoryUI : MonoBehaviour
             if (TimerManager.TimeRemaining <= 0)
             {
                 ItemNameText.text = "SPOILED " + Player.Product.ItemName;
-                BackgroundColor.color = Color.red; // Uncomment if you have a background image to change color
+                BackgroundColor.color = Color.red;
             }
         }
     }

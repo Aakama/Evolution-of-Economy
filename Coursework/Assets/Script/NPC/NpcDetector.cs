@@ -5,7 +5,10 @@ public class NpcDetector : MonoBehaviour
     public NpcOccupations ThisNpc;
     public NpcOccupations OtherNpc;
 
-    private bool IsAnotherNpcThere = false;
+    private Animator PlayerAnim;
+    private Animator NpcAnim;
+
+    public bool IsAnotherNpcThere = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,9 +20,21 @@ public class NpcDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (IsAnotherNpcThere) {
-        //     Debug.Log(temp);
-        // }
+        if (IsAnotherNpcThere)
+        {
+            PlayerAnim = ThisNpc.GetComponent<Animator>();
+            NpcAnim = OtherNpc.GetComponent<Animator>();
+            PlayerAnim.SetBool("Trading", true);
+            NpcAnim.SetBool("Trading", true);
+        }
+        else
+        {
+            if (PlayerAnim != null && NpcAnim != null)
+            {
+                PlayerAnim.SetBool("Trading", false);
+                NpcAnim.SetBool("Trading", false);
+            }
+        }
     }
 
     void OnTriggerEnter(Collider other)
