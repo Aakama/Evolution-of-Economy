@@ -9,6 +9,8 @@ public class InventoryUI : MonoBehaviour
     public Timer TimerManager; // Reference to your Timer script
 
     [Header("UI Elements")]
+    public TextMeshProUGUI DayText;
+
     public TextMeshProUGUI ItemNameText;
 
     public Slider TimerSlider;
@@ -25,6 +27,11 @@ public class InventoryUI : MonoBehaviour
     public Sprite ShoesSprite;
     public Sprite GrainSprite;
     public Sprite SaltSprite;
+
+    void Awake()
+    {
+        UpdateDayText();
+    }
 
     void Update()
     {
@@ -44,6 +51,8 @@ public class InventoryUI : MonoBehaviour
         }
 
         UpdateBackgroundColor();
+
+        // Invoke(nameof(UpdateDayText), 2f); // Update the day text every 0.5 seconds
     }
 
     void UpdateIcon()
@@ -94,6 +103,14 @@ public class InventoryUI : MonoBehaviour
                 ItemNameText.text = "SPOILED " + Player.Product.ItemName;
                 BackgroundColor.color = Color.red;
             }
+        }
+    }
+
+    void UpdateDayText()
+    {
+        if (DayText != null)
+        {
+            DayText.text = "Day - " + NpcTrading.currentDay;
         }
     }
 }

@@ -28,6 +28,6 @@ public class PerishibilityManager : MonoBehaviour
 
         NpcTrading.currentDay = 1;
 
-        // SceneManager.LoadScene("GameOverScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

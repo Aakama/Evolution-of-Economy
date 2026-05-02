@@ -49,18 +49,18 @@ public class Timer : MonoBehaviour
                 TimeRemaining = 0;
                 IsRunning = false;
 
-                // PerishibilityManager manager = Object.FindFirstObjectByType<PerishibilityManager>();
-                // if (manager != null)
-                // {
-                //     manager.TriggeredPerishability();
-                // }
-                // else
-                // {
-                //     Debug.LogError("Timer can't find the PerishabilityManager in this scene!");
-                // }
+                PerishibilityManager manager = Object.FindFirstObjectByType<PerishibilityManager>();
+                if (manager != null)
+                {
+                    manager.TriggeredPerishability();
+                }
+                else
+                {
+                    Debug.LogError("Timer can't find the PerishabilityManager in this scene!");
+                }
 
                 // Fire the signal!
-                OnTimerExpired?.Invoke();
+                // OnTimerExpired?.Invoke();
                 Debug.Log("Timer reached zero. Signal sent!");
             }
         }
