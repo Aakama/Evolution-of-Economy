@@ -11,7 +11,11 @@ public class InventoryUI : MonoBehaviour
     [Header("UI Elements")]
     public TextMeshProUGUI DayText;
 
-    public TextMeshProUGUI ItemNameText;
+    public GameObject ToolTipPanel;
+
+    public TextMeshProUGUI ToolTipText;
+
+    // public TextMeshProUGUI ItemNameText;
 
     public Slider TimerSlider;
 
@@ -39,6 +43,8 @@ public class InventoryUI : MonoBehaviour
 
         UpdateIcon();
 
+        UpdateToolTip();
+
         if (TimerSlider == null)
         {
             TimerSlider = GameObject.FindAnyObjectByType<UnityEngine.UI.Slider>();
@@ -51,8 +57,6 @@ public class InventoryUI : MonoBehaviour
         }
 
         UpdateBackgroundColor();
-
-        // Invoke(nameof(UpdateDayText), 2f); // Update the day text every 0.5 seconds
     }
 
     void UpdateIcon()
@@ -100,7 +104,7 @@ public class InventoryUI : MonoBehaviour
         {
             if (TimerManager.TimeRemaining <= 0)
             {
-                ItemNameText.text = "SPOILED " + Player.Product.ItemName;
+                // ItemNameText.text = "SPOILED " + Player.Product.ItemName;
                 BackgroundColor.color = Color.red;
             }
         }
@@ -112,5 +116,43 @@ public class InventoryUI : MonoBehaviour
         {
             DayText.text = "Day - " + NpcTrading.currentDay;
         }
+    }
+
+    void UpdateToolTip()
+    {
+        if (ToolTipText != null)
+        {
+            switch (Player.MyJobs)
+            {
+                case Occupations.Herder:
+                    ToolTipText.text = "This is a tooltip for the Herder's item.";
+                    break;
+                case Occupations.Tailor:
+                    ToolTipText.text = "This is a tooltip for the Tailor's item.";
+                    break;
+                case Occupations.AppleFarmer:
+                    ToolTipText.text = "This is a tooltip for the Apple Farmer's item.";
+                    break;
+                case Occupations.Cobbler:
+                    ToolTipText.text = "This is a tooltip for the Cobbler's item.";
+                    break;
+                case Occupations.SaltTrader:
+                    ToolTipText.text = "This is a tooltip for the Salt Trader's item.";
+                    break;
+                case Occupations.GrainFarmer:
+                    ToolTipText.text = "This is a tooltip for the Grain Farmer's item.";
+                    break;
+            }
+        }
+    }
+
+    public void SetAndShowToolTip()
+    {
+        ToolTipPanel.gameObject.SetActive(true);
+    }
+
+    public void HideToolTip()
+    {
+        ToolTipPanel.gameObject.SetActive(false);
     }
 }
