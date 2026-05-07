@@ -1,4 +1,5 @@
 using TMPro; // Use TextMeshPro for better looking text
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,16 +16,15 @@ public class InventoryUI : MonoBehaviour
 
     public TextMeshProUGUI ToolTipText;
 
-    // public TextMeshProUGUI ItemNameText;
+    public GameObject DialoguePanel;
+
+    public TextMeshProUGUI DialogueText;
 
     public Slider TimerSlider;
 
-    public Image BackgroundColor; // Optional: change color when spoiled
-
     [Header("Item Icons")]
-    public Image ItemIconDisplay; // Drag your new 'ItemIcon' UI Image here
+    public Image ItemIconDisplay;
 
-    // Drag your actual 2D pictures into these slots in the Inspector
     public Sprite MilkSprite;
     public Sprite ClothesSprite;
     public Sprite AppleSprite;
@@ -43,20 +43,27 @@ public class InventoryUI : MonoBehaviour
 
         UpdateIcon();
 
-        UpdateToolTip();
+        if (ToolTipPanel == null)
+        {
+            ToolTipPanel = GameObject.Find("ToolTip Background");
+        }
+
+        if (ToolTipPanel != null && !ToolTipPanel.activeSelf)
+        {
+            UpdateToolTip();
+        }
 
         if (TimerSlider == null)
         {
             TimerSlider = GameObject.FindAnyObjectByType<UnityEngine.UI.Slider>();
         }
 
-        // 2. Only run the update logic if we actually found a slider
         if (TimerSlider != null)
         {
             UpdateSlider();
         }
 
-        UpdateBackgroundColor();
+        // UpdateBackgroundColor();
     }
 
     void UpdateIcon()
@@ -98,17 +105,17 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    void UpdateBackgroundColor()
-    {
-        if (TimerManager != null && TimerManager.IsRunning)
-        {
-            if (TimerManager.TimeRemaining <= 0)
-            {
-                // ItemNameText.text = "SPOILED " + Player.Product.ItemName;
-                BackgroundColor.color = Color.red;
-            }
-        }
-    }
+    // void UpdateBackgroundColor()
+    // {
+    //     if (TimerManager != null && TimerManager.IsRunning)
+    //     {
+    //         if (TimerManager.TimeRemaining <= 0)
+    //         {
+    //             // ItemNameText.text = "SPOILED " + Player.Product.ItemName;
+    //             BackgroundColor.color = Color.red;
+    //         }
+    //     }
+    // }
 
     void UpdateDayText()
     {
@@ -125,22 +132,19 @@ public class InventoryUI : MonoBehaviour
             switch (Player.MyJobs)
             {
                 case Occupations.Herder:
-                    ToolTipText.text = "This is a tooltip for the Herder's item.";
-                    break;
-                case Occupations.Tailor:
-                    ToolTipText.text = "This is a tooltip for the Tailor's item.";
-                    break;
-                case Occupations.AppleFarmer:
-                    ToolTipText.text = "This is a tooltip for the Apple Farmer's item.";
-                    break;
-                case Occupations.Cobbler:
-                    ToolTipText.text = "This is a tooltip for the Cobbler's item.";
-                    break;
-                case Occupations.SaltTrader:
-                    ToolTipText.text = "This is a tooltip for the Salt Trader's item.";
+                    ToolTipText.text = "The GrainFarmer is up the stairs to the east.";
                     break;
                 case Occupations.GrainFarmer:
-                    ToolTipText.text = "This is a tooltip for the Grain Farmer's item.";
+                    ToolTipText.text =
+                        "The Salt Trader is just at south of the island near the tower.";
+                    break;
+                case Occupations.SaltTrader:
+                    ToolTipText.text =
+                        "The Cobbler is just at the north west of the island near the tree.";
+                    break;
+                case Occupations.Cobbler:
+                    ToolTipText.text =
+                        "The Apple Farmer is just at the north east of the island near the tree.";
                     break;
             }
         }
@@ -148,11 +152,27 @@ public class InventoryUI : MonoBehaviour
 
     public void SetAndShowToolTip()
     {
-        ToolTipPanel.gameObject.SetActive(true);
+        if (ToolTipPanel.gameObject.activeSelf == false)
+        {
+            ToolTipPanel.gameObject.SetActive(true);
+        }
+        else
+        {
+            ToolTipPanel.gameObject.SetActive(false);
+        }
     }
 
-    public void HideToolTip()
+    public void SetAndShowDialogue(string dialogue)
     {
-        ToolTipPanel.gameObject.SetActive(false);
+        if (DialoguePanel.gameObject.activeSelf == false)
+        {
+            DialoguePanel.gameObject.SetActive(true);
+            DialogueText.text = dialogue;
+        }
+        else
+        {
+            DialoguePanel.gameObject.SetActive(false);
+            DialogueText.text = "";
+        }
     }
 }

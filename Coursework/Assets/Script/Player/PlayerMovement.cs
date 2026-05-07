@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -44,6 +45,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return; // Ignore clicks on UI elements
+            }
+
             if (Physics.Raycast(ray, out RaycastHit hit, GroundLayer))
             {
                 if (
@@ -81,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
                     if (FailedClickMarkerPrefab != null)
                     {
                         // Calculate the position slightly above ground
-                        Vector3 spawnPos = transform.position + new Vector3(0, -1f, 0);
+                        Vector3 spawnPos = transform.position + new Vector3(0, 0.1f, 0);
 
                         // Instantiate creates a brand new copy of the Prefab in the scene
                         GameObject newMarker = Instantiate(

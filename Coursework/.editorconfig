@@ -1,0 +1,26 @@
+root = true
+
+[*.cs]
+#### 1. DEFINE STYLES ####
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case
+
+#### 2. DEFINE SYMBOLS ####
+dotnet_naming_symbols.method_symbols.applicable_kinds = method
+dotnet_naming_symbols.property_symbols.applicable_kinds = property
+
+#### 3. APPLY RULES (Must come after symbols/styles) ####
+# Methods
+dotnet_naming_rule.methods_should_be_pascal_case.symbols = method_symbols
+dotnet_naming_rule.methods_should_be_pascal_case.style = pascal_case_style
+dotnet_naming_rule.methods_should_be_pascal_case.severity = warning
+
+# Properties
+dotnet_naming_rule.properties_should_be_pascal_case.symbols = property_symbols
+dotnet_naming_rule.properties_should_be_pascal_case.style = pascal_case_style
+dotnet_naming_rule.properties_should_be_pascal_case.severity = warning
+
+# Add this line to force the analyzer to show warnings
+dotnet_diagnostic.IDE1006.severity = warning
+
+# Ensure the rule itself is also set to warning
+dotnet_naming_rule.methods_should_be_pascal_case.severity = warning

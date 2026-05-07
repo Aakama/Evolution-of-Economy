@@ -5,72 +5,113 @@ public class NpcDetector : MonoBehaviour
     public NpcOccupations ThisNpc;
     public NpcOccupations OtherNpc;
 
-    private Animator PlayerAnim;
-    private Animator NpcAnim;
+    private Animator playerAnim;
+    private Animator otherNpcAnim;
 
     public bool IsAnotherNpcThere = false;
+    public bool IsTrading = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // This gets the field of the npc
         ThisNpc = GetComponent<NpcOccupations>();
+        playerAnim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (IsAnotherNpcThere)
+        if (playerAnim == null)
+            return;
+
+        if (IsAnotherNpcThere && otherNpcAnim != null)
         {
-            PlayerAnim = ThisNpc.GetComponent<Animator>();
-            NpcAnim = OtherNpc.GetComponent<Animator>();
-            PlayerAnim.SetBool("Trading", true);
-            NpcAnim.SetBool("Trading", true);
+            DialogueManager.Instance.Startdialogue(IsTrading, ThisNpc);
+            if (IsTrading)
+            {
+                SwitchAnimations(true);
+            }
+            else
+            {
+                SwitchAnimations(false);
+            }
         }
         else
         {
-            if (PlayerAnim != null && NpcAnim != null)
-            {
-                PlayerAnim.SetBool("Trading", false);
-                NpcAnim.SetBool("Trading", false);
-            }
+            ResetAnimations();
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == gameObject.layer)
+        if (other.gameObject.layer != gameObject.layer)
+            return;
+
+        if (!other.TryGetComponent(out NpcOccupations otherNpc))
+            return;
+
+        if (otherNpc == ThisNpc)
+            return;
+
+        OtherNpc = otherNpc;
+        otherNpcAnim = OtherNpc.GetComponent<Animator>();
+        IsAnotherNpcThere = true;
+        IsTrading = CheckForMatch(ThisNpc, OtherNpc);
+
+        if (IsTrading)
         {
-            OtherNpc = other.GetComponent<NpcOccupations>();
-
-            if (OtherNpc != null)
-            {
-                IsAnotherNpcThere = true;
-
-                if (CheckForMatch(ThisNpc, OtherNpc))
-                {
-                    Debug.Log("Hello");
-
-                    NpcTrading.Instance.ExecuteTradeLogic(ThisNpc, OtherNpc);
-                }
-                else
-                {
-                    Debug.Log("Bye");
-                }
-            }
+            Debug.Log("Hello");
+            NpcTrading.Instance.ExecuteTradeLogic(ThisNpc, OtherNpc);
+        }
+        else
+        {
+            Debug.Log("Bye");
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == gameObject.layer)
-        {
-            IsAnotherNpcThere = false;
-        }
+        if (other.gameObject.layer != gameObject.layer)
+            return;
+
+        if (!other.TryGetComponent(out NpcOccupations otherNpc))
+            return;
+
+        if (otherNpc != OtherNpc)
+            return;
+
+        ResetAnimations();
+        IsAnotherNpcThere = false;
+        IsTrading = false;
+        OtherNpc = null;
+        otherNpcAnim = null;
     }
 
-    bool CheckForMatch(NpcOccupations ThisNpc, NpcOccupations OtherNpc)
+    bool CheckForMatch(NpcOccupations thisNpc, NpcOccupations otherNpc)
     {
-        return ThisNpc.Product.ItemName == OtherNpc.Preference;
+        bool match = thisNpc.Product.ItemName == otherNpc.Preference;
+        return match;
+    }
+
+    void SwitchAnimations(bool trading)
+    {
+        playerAnim.SetBool("Trading", trading);
+        otherNpcAnim.SetBool("Trading", trading);
+
+        playerAnim.SetBool("Greeting", !trading);
+        otherNpcAnim.SetBool("Greeting", !trading);
+    }
+
+    void ResetAnimations()
+    {
+        if (playerAnim != null)
+        {
+            playerAnim.SetBool("Trading", false);
+            playerAnim.SetBool("Greeting", false);
+        }
+
+        if (otherNpcAnim != null)
+        {
+            otherNpcAnim.SetBool("Trading", false);
+            otherNpcAnim.SetBool("Greeting", false);
+        }
     }
 }
