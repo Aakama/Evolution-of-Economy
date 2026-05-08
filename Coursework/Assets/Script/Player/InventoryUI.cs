@@ -20,6 +20,12 @@ public class InventoryUI : MonoBehaviour
 
     public TextMeshProUGUI DialogueText;
 
+    public GameObject DeathScreenPanel;
+
+    public GameObject WinScreenPanel;
+
+    public GameObject Hud;
+
     public Slider TimerSlider;
 
     [Header("Item Icons")]
@@ -174,5 +180,18 @@ public class InventoryUI : MonoBehaviour
             DialoguePanel.gameObject.SetActive(false);
             DialogueText.text = "";
         }
+    }
+
+    public void DeathScreen()
+    {
+        Hud.SetActive(false);
+        DeathScreenPanel.SetActive(true);
+    }
+
+    public void WinScreen()
+    {
+        Hud.SetActive(false);
+        DeathScreenPanel.SetActive(false);
+        WinScreenPanel.SetActive(true);
     }
 }

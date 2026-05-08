@@ -11,6 +11,7 @@ TagManager:
   - AppleFarmer
   - GrainFarmer
   - SaltTrader
+  - GameOverUI
   layers:
   - Default
   - TransparentFX

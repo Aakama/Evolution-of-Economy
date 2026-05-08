@@ -10,6 +10,8 @@ public class NpcTrading : MonoBehaviour
 
     public Timer Timer;
 
+    public InventoryUI InventoryUI;
+
     public WinningLogic WinningLogic;
 
     public static int currentDay = 1;
@@ -32,7 +34,22 @@ public class NpcTrading : MonoBehaviour
         }
     }
 
-    void Start() { }
+    void Update()
+    {
+        if (currentDay == 3)
+        {
+            InventoryUI canvas = GameObject.Find("Player").GetComponent<InventoryUI>();
+            if (canvas != null)
+            {
+                canvas.Invoke("WinScreen", 0.5f);
+            }
+            else
+            {
+                Debug.LogError("NpcTrading can't find the InventoryUI in this scene!");
+            }
+            currentDay = 0;
+        }
+    }
 
     public void ExecuteTradeLogic(NpcOccupations ThisNpc, NpcOccupations OtherNpc)
     {
@@ -65,10 +82,6 @@ public class NpcTrading : MonoBehaviour
                 }
             }
         }
-        // else if (currentDay >= 3)
-        // {
-        //     CheckItemValue(ThisNpc, OtherNpc);
-        // }
     }
 
     public bool CheckPreference(NpcOccupations ThisNpc, NpcOccupations OtherNpc)

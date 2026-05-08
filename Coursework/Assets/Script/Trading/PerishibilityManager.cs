@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class PerishibilityManager : MonoBehaviour
 {
+    public GameObject GameOverPanel;
     public static PerishibilityManager Instance;
 
     void Awake()
@@ -22,12 +23,53 @@ public class PerishibilityManager : MonoBehaviour
         }
     }
 
-    public void TriggeredPerishability()
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 1. Find the main UI Canvas
+        GameObject canvas = GameObject.Find("Death");
+
+        if (canvas != null)
+        {
+            // 2. Look for the panel inside the canvas (even if inactive)
+            Transform panelTransform = canvas.transform.Find("Panel");
+
+            if (panelTransform != null)
+            {
+                GameOverPanel = panelTransform.gameObject;
+            }
+        }
+    }
+
+    public void GameOverResetScene()
     {
         Debug.Log("Item rotted");
 
         NpcTrading.currentDay = 1;
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void TriggeredPerishability()
+    {
+        if (GameOverPanel != null)
+        {
+            GameOverPanel.SetActive(true);
+            Debug.Log("GameOverPanel activated due to timer expiration");
+        }
+        else
+        {
+            Debug.LogError("GameOverPanel is not assigned in the PerishabilityManager!");
+            GameOverResetScene(); // Fallback to resetting the scene if the panel is missing
+        }
     }
 }

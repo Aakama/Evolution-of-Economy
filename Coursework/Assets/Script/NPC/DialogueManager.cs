@@ -54,20 +54,63 @@ public class DialogueManager : MonoBehaviour
         switch (Player.MyJobs)
         {
             case Occupations.Herder:
-                currentDialogue =
-                    "Herder: I heard that the Grain Farmer is looking for Milk. Maybe you should have a chat with him? He is just up the stairs to the east.";
+                if (NpcTrading.currentDay == 1)
+                {
+                    currentDialogue =
+                        "Herder: I heard that the Grain Farmer is looking for Milk. Maybe you should have a chat with him? He is just up the stairs to the east.";
+                }
+                else
+                {
+                    currentDialogue =
+                        "Herder: The Milk spoils really fast. You should trade it as soon as possible.";
+                }
                 return currentDialogue;
             case Occupations.GrainFarmer:
-                currentDialogue =
-                    "Grain Farmer: The Salt Trader is always looking for Grain. Maybe you should have a chat with him? He is just at south of the island near the tower.";
+                if (NpcTrading.currentDay == 1)
+                {
+                    currentDialogue =
+                        "Grain Farmer: The Salt Trader is always looking for Grain. Maybe you should have a chat with him? He is just at south of the island near the tower.";
+                }
+                else
+                {
+                    currentDialogue =
+                        "Grain Farmer: The self life of this grain is pretty low. You should trade it while it is still fresh.";
+                }
                 return currentDialogue;
             case Occupations.SaltTrader:
-                currentDialogue =
-                    "Salt Trader: The Cobbler was searching for salt the other day. Maybe you should have a chat with him? He is just at the north west of the island near the tree.";
+                if (NpcTrading.currentDay == 1)
+                {
+                    currentDialogue =
+                        "Salt Trader: The Cobbler was searching for salt the other day. Maybe you should have a chat with him? He is just at the north west of the island near the tree.";
+                }
+                else
+                {
+                    currentDialogue =
+                        "Salt Trader: The Salt is pretty stable, you can take your time to trade it.";
+                }
                 return currentDialogue;
             case Occupations.Cobbler:
-                currentDialogue =
-                    "Cobbler: The Apple Farmer just broke their shoes yesterday. Maybe you should have a chat with him? He is just at the north east of the island near the tree.";
+                if (NpcTrading.currentDay == 1)
+                {
+                    currentDialogue =
+                        "Cobbler: The Apple Farmer just broke their shoes yesterday. Maybe you should have a chat with him? He is just at the north east of the island near the tree.";
+                }
+                else
+                {
+                    currentDialogue =
+                        "Cobbler: The shoes are pretty durable, you can take your time to trade it.";
+                }
+                return currentDialogue;
+            case Occupations.AppleFarmer:
+                if (NpcTrading.currentDay == 1)
+                {
+                    currentDialogue = "Cobbler: Pleasure doing business with you.";
+                }
+                else
+                {
+                    currentDialogue =
+                        "Cobbler: You must really like apples to go through all the trouble of trading to get them.";
+                }
                 return currentDialogue;
             default:
                 return "";
@@ -76,6 +119,12 @@ public class DialogueManager : MonoBehaviour
 
     public void Startdialogue(bool isTrading = false, NpcOccupations Player = null)
     {
+        if (DialoguePanel == null || DialogueText == null)
+        {
+            Debug.LogError("DialoguePanel or DialogueText is not assigned in the inspector!");
+            return;
+        }
+
         if (DialoguePanel.activeSelf)
             return;
 

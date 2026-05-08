@@ -24,7 +24,10 @@ public class NpcDetector : MonoBehaviour
 
         if (IsAnotherNpcThere && otherNpcAnim != null)
         {
-            DialogueManager.Instance.Startdialogue(IsTrading, ThisNpc);
+            if (DialogueManager.Instance != null)
+            {
+                DialogueManager.Instance.Startdialogue(IsTrading, ThisNpc);
+            }
             if (IsTrading)
             {
                 SwitchAnimations(true);

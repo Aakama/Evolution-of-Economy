@@ -6,7 +6,7 @@ public class Timer : MonoBehaviour
     public static Timer Instance;
     public float TimeRemaining;
 
-    public PerishibilityManager PerishabilityManager;
+    public InventoryUI InventoryUI;
 
     public float Duration;
     public bool IsRunning = false;
@@ -49,14 +49,13 @@ public class Timer : MonoBehaviour
                 TimeRemaining = 0;
                 IsRunning = false;
 
-                PerishibilityManager manager = Object.FindFirstObjectByType<PerishibilityManager>();
-                if (manager != null)
+                if (InventoryUI != null)
                 {
-                    manager.TriggeredPerishability();
+                    InventoryUI.DeathScreen();
                 }
                 else
                 {
-                    Debug.LogError("Timer can't find the PerishabilityManager in this scene!");
+                    Debug.LogError("Timer can't find the InventoryUI in this scene!");
                 }
 
                 // Fire the signal!
