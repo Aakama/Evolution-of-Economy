@@ -104,12 +104,12 @@ public class DialogueManager : MonoBehaviour
             case Occupations.AppleFarmer:
                 if (NpcTrading.currentDay == 1)
                 {
-                    currentDialogue = "Cobbler: Pleasure doing business with you.";
+                    currentDialogue = "Apple Farmer: Pleasure doing business with you.";
                 }
                 else
                 {
                     currentDialogue =
-                        "Cobbler: You must really like apples to go through all the trouble of trading to get them.";
+                        "Apple Farmer: You must really like apples to go through all the trouble of trading to get them.";
                 }
                 return currentDialogue;
             default:

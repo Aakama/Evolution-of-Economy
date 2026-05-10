@@ -63,7 +63,7 @@ public class NpcOccupations : MonoBehaviour
                 gameObject.tag = "Herder";
                 break;
             case Occupations.AppleFarmer:
-                Product = new ItemManager("Apple", 1, true, 30f);
+                Product = new ItemManager("Apple", 1, false);
                 Preference = "Shoes";
                 gameObject.tag = "AppleFarmer";
                 break;
