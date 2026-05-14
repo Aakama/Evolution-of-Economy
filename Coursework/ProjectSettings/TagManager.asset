@@ -12,6 +12,8 @@ TagManager:
   - GrainFarmer
   - SaltTrader
   - GameOverUI
+  - Checkout
+  - Customers
   layers:
   - Default
   - TransparentFX

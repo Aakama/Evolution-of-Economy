@@ -13,6 +13,8 @@ public class GoldNpcDetector : MonoBehaviour
     private Animator playerAnim;
     private Animator otherNpcAnim;
 
+    public GameObject WinPanel;
+
     public bool IsAnotherNpcThere = false;
     public bool IsTrading = false;
 
@@ -48,6 +50,8 @@ public class GoldNpcDetector : MonoBehaviour
         {
             GoldResetAnimations();
         }
+
+        CheckWinCondition();
     }
 
     void OnTriggerEnter(Collider other)
@@ -161,6 +165,18 @@ public class GoldNpcDetector : MonoBehaviour
         if (BuyPanel != null)
         {
             BuyPanel.SetActive(false);
+        }
+    }
+
+    void CheckWinCondition()
+    {
+        if (ThisNpc.Product.ItemValue <= 20)
+        {
+            Debug.Log("You win");
+            if (WinPanel != null)
+            {
+                WinPanel.SetActive(true);
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ public class NpcTrading : MonoBehaviour
 
     public WinningLogic WinningLogic;
 
-    public static int currentDay = 2;
+    public static int currentDay = 1;
 
     void Awake()
     {
@@ -141,6 +141,7 @@ public class NpcTrading : MonoBehaviour
     public void ResetScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        InventoryUI.SetInfo();
     }
 
     public void RefreshTimer(NpcOccupations player)

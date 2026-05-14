@@ -54,7 +54,7 @@ public class PerishibilityManager : MonoBehaviour
     {
         Debug.Log("Item rotted");
 
-        NpcTrading.currentDay = 1;
+        NpcTrading.currentDay = 2;
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

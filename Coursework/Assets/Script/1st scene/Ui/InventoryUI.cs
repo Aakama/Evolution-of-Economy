@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
+    public GameObject Huds;
+    public GameObject Info_1;
+    public GameObject Info_2;
     public NpcOccupations Player;
 
     public Timer TimerManager; // Reference to your Timer script
@@ -41,6 +44,23 @@ public class InventoryUI : MonoBehaviour
     void Awake()
     {
         UpdateDayText();
+    }
+
+    void Start()
+    {
+        Info_1.SetActive(true);
+    }
+
+    public void SetInfo()
+    {
+        Info_2.SetActive(true);
+    }
+
+    public void RemoveInfo()
+    {
+        Info_1.SetActive(false);
+        Info_2.SetActive(false);
+        Huds.SetActive(true);
     }
 
     void Update()
