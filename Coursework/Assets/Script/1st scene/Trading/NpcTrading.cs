@@ -14,7 +14,7 @@ public class NpcTrading : MonoBehaviour
 
     public WinningLogic WinningLogic;
 
-    public static int currentDay = 1;
+    public static int currentDay = 2;
 
     void Awake()
     {

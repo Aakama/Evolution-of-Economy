@@ -48,7 +48,15 @@ public class InventoryUI : MonoBehaviour
 
     void Start()
     {
-        Info_1.SetActive(true);
+        if (NpcTrading.currentDay == 1)
+        {
+            Info_1.SetActive(true);
+        }
+        else
+        {
+            Info_2.SetActive(true);
+        }
+        Huds.SetActive(false);
     }
 
     public void SetInfo()

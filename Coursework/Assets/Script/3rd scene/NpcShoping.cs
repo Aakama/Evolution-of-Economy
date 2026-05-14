@@ -40,12 +40,12 @@ public class NpcShoping : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI Cashier;
 
-    void Start()
-    {
-        Invoke("Start1", 2f);
-        Invoke("Start2", 7f);
-        Invoke("Start3", 20f);
-    }
+    [Header("Hud")]
+    public GameObject Hud;
+    public GameObject Info;
+    public GameObject WinScreen;
+
+    private int count;
 
     void Update()
     {
@@ -53,6 +53,28 @@ public class NpcShoping : MonoBehaviour
         UpdateAnimations(Customer1, Anim1);
         UpdateAnimations(Customer2, Anim2);
         UpdateAnimations(Customer2, Anim3);
+
+        if (count == 3)
+        {
+            Invoke("Win", 10f);
+        }
+    }
+
+    void Win()
+    {
+        Time.timeScale = 0f;
+        WinScreen.SetActive(true);
+        Hud.SetActive(false);
+    }
+
+    public void CashContinue()
+    {
+        Info.SetActive(false);
+        Hud.SetActive(true);
+
+        Invoke("Start1", 2f);
+        Invoke("Start2", 7f);
+        Invoke("Start3", 20f);
     }
 
     void Start1()
@@ -138,6 +160,7 @@ public class NpcShoping : MonoBehaviour
     {
         Time.timeScale = 1f;
         BuyPanel.SetActive(false);
+        count += 1;
     }
 
     void GenerateText()
@@ -161,5 +184,10 @@ public class NpcShoping : MonoBehaviour
         float speed = Agent.velocity.magnitude;
 
         Anim.SetFloat("Speed", speed);
+    }
+
+    public void EndGame()
+    {
+        Application.Quit();
     }
 }

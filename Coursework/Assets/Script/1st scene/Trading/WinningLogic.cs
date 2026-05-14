@@ -19,6 +19,7 @@ public class WinningLogic : MonoBehaviour
                 Debug.Log("Congratulations! You've won the game!");
 
                 NpcTrading.Instance.EndOfDay();
+
                 // Reset the scene or load a new one for the winning scenario
                 // You can add more logic here, such as loading a new scene or displaying a UI message
             }
