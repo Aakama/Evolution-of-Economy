@@ -14,7 +14,7 @@ public class NpcTrading : MonoBehaviour
 
     public WinningLogic WinningLogic;
 
-    public static int currentDay = 2;
+    public static int currentDay = 1;
 
     void Awake()
     {
@@ -41,7 +41,7 @@ public class NpcTrading : MonoBehaviour
             InventoryUI canvas = GameObject.Find("Player").GetComponent<InventoryUI>();
             if (canvas != null)
             {
-                canvas.Invoke("WinScreen", 0.5f);
+                canvas.Invoke("WinScreen", 4f);
             }
             else
             {
@@ -135,7 +135,7 @@ public class NpcTrading : MonoBehaviour
         currentDay++;
         Debug.Log("Day " + currentDay);
 
-        Invoke("ResetScene", 2f); // Resets the scene after 2 seconds to show the new day
+        Invoke("ResetScene", 4f); // Resets the scene after 2 seconds to show the new day
     }
 
     public void ResetScene()
